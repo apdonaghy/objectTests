@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <main id="main"></main>
+    <script>
+        let listItems = ['eggs', 'cheese', 'vegetables', 'bacon']
+
+        let main = document.getElementById('main')
+        function makeElement(tag, className, appendName, insideText){
+            let tagName = document.createElement(tag)
+            tagName.setAttribute('class', className)
+            if(insideText != ''){
+            tagName.innerText = insideText
+            }
+            appendName.appendChild(tagName)
+        }
+
+        makeElement('h1', 'intro', main, 'Hello World')
+        makeElement('h2', '2ndIntro', main, 'Subtitle')
+        makeElement('p', 'paragraph', main, 'testing the paragraph')
+        makeElement('ul', 'theList', main, '')
+        for(let item of listItems){
+        makeElement('li', 'singleItem', document.querySelector('.theList'), item)
+        }
+
+    </script>
+</body>
+</html>
