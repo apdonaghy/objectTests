@@ -6,6 +6,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        #main {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        .imageContainer {
+            display: flex;
+            flex-wrap: flex;
+        }
+
+        .image {
+            width: 33.333%;
+            margin: 5px;
+        }
+
+        h1 {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
 </head>
 
 
@@ -33,14 +59,61 @@
             appendName.appendChild(tagName)
         }
 
+        const images = ['cookie1.png', 'cookie2.png', 'cookie3.png']
+
+        class Element {
+            constructor(tag, className, insideText, appendName) {
+                this.tag = tag;
+                this.className = className;
+                this.insideText = insideText;
+                this.appendName = appendName;
+            }
+            makeTag(){
+                let tagName = document.createElement(this.tag)
+                tagName.setAttribute('class', this.className)
+                if (this.insideText != '') {
+                tagName.innerText = this.insideText
+                }
+                this.appendName.appendChild(tagName)
+            }
+        }
+
+        class Image extends Element{
+            constructor(tag, className, insideText, appendName, imgSrc, altText) {
+                super(tag, className, insideText, appendName);
+                this.imgSrc = imgSrc;
+                this.altText = altText;
+            }
+            makeTag(){
+                let tagName = document.createElement(this.tag)
+                tagName.setAttribute('class', this.className)
+                if (this.insideText != '') {
+                tagName.innerText = this.insideText
+                }
+                this.appendName.appendChild(tagName)
+                tagName.setAttribute('src', this.imgSrc)
+                tagName.setAttribute('alt', this.altText)
+            }
+        }
+
+        let test = new Element('h3', 'test this', 'testing', main)
+        test.makeTag()
+
+        for(let image of images){
+            new Image('img', 'image', '', main, image, 'cookie').makeTag()
+        }
+        
         makeElement('h1', 'intro', main, 'Hello World', '', '')
         makeElement('h2', '2ndIntro', main, 'Subtitle', '', '')
         makeElement('p', 'paragraph', main, 'testing the paragraph', '', '')
         makeElement('ul', 'theList', main, '', '', '')
+        makeElement('div', 'imageContainer', main, '', '', '')
         for (let item of listItems) {
             makeElement('li', 'singleItem', document.querySelector('.theList'), item, '', '', listItems.indexOf(item))
         }
-        makeElement('img', 'image', main, '', 'fried_rice.jpg', 'fried rice')
+        makeElement('img', 'image', document.querySelector('.imageContainer'), '', 'cookie1.png', 'fried rice')
+        makeElement('img', 'image', document.querySelector('.imageContainer'), '', 'cookie2.png', 'fried rice')
+        makeElement('img', 'image', document.querySelector('.imageContainer'), '', 'cookie3.png', 'fried rice')
     </script>
 </body>
 
